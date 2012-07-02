@@ -10,9 +10,11 @@
 {
 	[super viewDidLoad];
 
-	numPages = 2;
+	numPages = 3;
 
-	pagingScrollView.previewInsets = UIEdgeInsetsMake(0, 50, 0, 50);
+	pagingScrollView.frame = (CGRect) { .origin = {0, 0}, .size = {320, 416} };
+	pagingScrollView.padding = 20;
+	pagingScrollView.previewInsets = UIEdgeInsetsMake(0, 20, 0, 20);
 	[pagingScrollView reloadPages];
 
 	pageControl.currentPage = 0;
@@ -82,6 +84,8 @@
 		[pagingScrollView reloadPages];
 		pageControl.numberOfPages = numPages;
 	}
+  
+	[pagingScrollView scrollViewDidEndDecelerating];
 }
 
 #pragma mark - MHPagingScrollViewDelegate

@@ -30,6 +30,7 @@
 }
 
 @synthesize previewInsets;
+@synthesize padding;
 @synthesize pagingDelegate;
 
 - (void)commonInit
@@ -66,6 +67,12 @@
 	[recycledPages release];
 	[visiblePages release];
 	[super dealloc];
+}
+
+- (void)setPadding:(CGFloat)thePadding
+{
+	padding = thePadding;
+	self.bounds = CGRectMake(0, 0, self.bounds.size.width + 2*thePadding, self.bounds.size.height);
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
@@ -141,7 +148,8 @@
 - (CGRect)frameForPageAtIndex:(NSUInteger)index
 {
 	CGRect rect = self.bounds;
-	rect.origin.x = rect.size.width * index;
+	rect.size.width = rect.size.width - 2*self.padding;
+	rect.origin.x = (self.bounds.size.width * index) + self.padding;
 	return rect;
 }
 
@@ -194,6 +202,12 @@
 - (void)scrollViewDidScroll
 {
 	[self tilePages];
+}
+
+- (void)scrollViewDidEndDecelerating
+{
+	NSUInteger index = [self indexOfSelectedPage];
+	self.contentOffset = CGPointMake(self.bounds.size.width * index, self.contentOffset.y);
 }
 
 - (void)beforeRotation

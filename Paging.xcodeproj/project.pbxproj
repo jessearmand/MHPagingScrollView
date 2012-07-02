@@ -59,7 +59,10 @@
 				7B0F4C961363017C00DE4938 /* Frameworks */,
 				7B0F4C941363017C00DE4938 /* Products */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
+			usesTabs = 1;
 		};
 		7B0F4C941363017C00DE4938 /* Products */ = {
 			isa = PBXGroup;

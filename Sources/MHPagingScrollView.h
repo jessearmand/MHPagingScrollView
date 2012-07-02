@@ -39,6 +39,8 @@
 /*! The width of the preview pages. */
 @property (nonatomic, assign) UIEdgeInsets previewInsets;
 
+@property (nonatomic, assign) CGFloat padding;
+
 /*!
  * Makes the page at the requested index visible.
  */
@@ -63,6 +65,8 @@
  * Call this from your view controller's UIScrollViewDelegate.
  */
 - (void)scrollViewDidScroll;
+
+- (void)scrollViewDidEndDecelerating;
 
 /*!
  * Call this from your view controller's willRotateToInterfaceOrientation if
