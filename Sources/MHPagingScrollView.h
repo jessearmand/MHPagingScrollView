@@ -39,6 +39,10 @@
 /*! The width of the preview pages. */
 @property (nonatomic, assign) UIEdgeInsets previewInsets;
 
+/*! Insets for each page */
+@property (nonatomic, assign) UIEdgeInsets pageInsets;
+
+/*! Padding between each page */
 @property (nonatomic, assign) CGFloat padding;
 
 /*!

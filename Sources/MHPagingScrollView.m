@@ -148,8 +148,10 @@
 - (CGRect)frameForPageAtIndex:(NSUInteger)index
 {
 	CGRect rect = self.bounds;
-	rect.size.width = rect.size.width - 2*self.padding;
-	rect.origin.x = (self.bounds.size.width * index) + self.padding;
+	rect.size.width = rect.size.width - 2*self.padding - (self.pageInsets.left + self.pageInsets.right);
+	rect.size.height = rect.size.height - (self.pageInsets.top + self.pageInsets.bottom);
+	rect.origin.x = (self.bounds.size.width * index) + self.padding + self.pageInsets.left;
+	rect.origin.y = self.pageInsets.top;
 	return rect;
 }
 

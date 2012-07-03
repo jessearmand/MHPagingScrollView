@@ -15,6 +15,7 @@
 	pagingScrollView.frame = (CGRect) { .origin = {0, 0}, .size = {320, 416} };
 	pagingScrollView.padding = 20;
 	pagingScrollView.previewInsets = UIEdgeInsetsMake(0, 20, 0, 20);
+	pagingScrollView.pageInsets = UIEdgeInsetsMake(10, 10, 10, 10);
 	[pagingScrollView reloadPages];
 
 	pageControl.currentPage = 0;
