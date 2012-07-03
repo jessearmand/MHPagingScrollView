@@ -25,6 +25,7 @@
 }
 
 @synthesize previewInsets;
+@synthesize pageInsets;
 @synthesize padding;
 @synthesize pagingDelegate;
 
