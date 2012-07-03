@@ -3,7 +3,7 @@
 
 @interface MHPage : NSObject
 
-@property (nonatomic, retain) UIView *view;
+@property (nonatomic, strong) UIView *view;
 @property (nonatomic, assign) NSInteger index;
 
 @end
@@ -13,11 +13,6 @@
 @synthesize view;
 @synthesize index;
 
-- (void)dealloc
-{
-	[view release];
-	[super dealloc];
-}
 
 @end
 
@@ -62,12 +57,6 @@
 	return self;
 }
 
-- (void)dealloc
-{
-	[recycledPages release];
-	[visiblePages release];
-	[super dealloc];
-}
 
 - (void)setPadding:(CGFloat)thePadding
 {
@@ -114,7 +103,7 @@
 
 - (NSInteger)numberOfPages
 {
-	return [pagingDelegate numberOfPagesInPagingScrollView:self];
+	return [self.pagingDelegate numberOfPagesInPagingScrollView:self];
 }
 
 - (CGSize)contentSizeForPagingScrollView
@@ -138,7 +127,7 @@
 	MHPage *page = [recycledPages anyObject];
 	if (page != nil)
 	{
-		UIView *view = [[page.view retain] autorelease];
+		UIView *view = page.view;
 		[recycledPages removeObject:page];
 		return view;
 	}
@@ -182,7 +171,7 @@
 	{
 		if (![self isDisplayingPageForIndex:i])
 		{
-			UIView *pageView = [pagingDelegate pagingScrollView:self pageForIndex:i];
+			UIView *pageView = [self.pagingDelegate pagingScrollView:self pageForIndex:i];
 			pageView.frame = [self frameForPageAtIndex:i];
 			[self addSubview:pageView];
 
@@ -190,7 +179,6 @@
 			page.index = i;
 			page.view = pageView;
 			[visiblePages addObject:page];
-			[page release];
 		}
 	}
 }

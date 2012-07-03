@@ -12,20 +12,20 @@
 
 	numPages = 3;
 
-	pagingScrollView.frame = (CGRect) { .origin = {0, 0}, .size = {320, 416} };
-	pagingScrollView.padding = 20;
-	pagingScrollView.previewInsets = UIEdgeInsetsMake(0, 20, 0, 20);
-	pagingScrollView.pageInsets = UIEdgeInsetsMake(10, 10, 10, 10);
-	[pagingScrollView reloadPages];
+	self.pagingScrollView.frame = (CGRect) { .origin = {0, 0}, .size = {320, 416} };
+	self.pagingScrollView.padding = 20;
+	self.pagingScrollView.previewInsets = UIEdgeInsetsMake(0, 20, 0, 20);
+	self.pagingScrollView.pageInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+	[self.pagingScrollView reloadPages];
 
-	pageControl.currentPage = 0;
-	pageControl.numberOfPages = numPages;
+	self.pageControl.currentPage = 0;
+	self.pageControl.numberOfPages = numPages;
 }
 
 - (void)releaseObjects
 {
-	[pagingScrollView release], pagingScrollView = nil;
-	[pageControl release], pageControl = nil;
+	self.pagingScrollView = nil;
+	self.pageControl = nil;
 }
 
 - (void)viewDidUnload
@@ -37,19 +37,18 @@
 - (void)dealloc
 {
 	[self releaseObjects];
-	[super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
 {
-	[pagingScrollView didReceiveMemoryWarning];
+	[self.pagingScrollView didReceiveMemoryWarning];
 }
 
 #pragma mark - Actions
 
 - (IBAction)pageTurn
 {
-	[pagingScrollView selectPageAtIndex:pageControl.currentPage animated:YES];
+	[self.pagingScrollView selectPageAtIndex:pageControl.currentPage animated:YES];
 }
 
 #pragma mark - View Controller Rotation
@@ -61,32 +60,32 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-	[pagingScrollView beforeRotation];
+	[self.pagingScrollView beforeRotation];
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-	[pagingScrollView afterRotation];
+	[self.pagingScrollView afterRotation];
 }
 
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)theScrollView
 {
-	pageControl.currentPage = [pagingScrollView indexOfSelectedPage];
-	[pagingScrollView scrollViewDidScroll];
+	self.pageControl.currentPage = [self.pagingScrollView indexOfSelectedPage];
+	[self.pagingScrollView scrollViewDidScroll];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)theScrollView
 {
-	if ([pagingScrollView indexOfSelectedPage] == numPages - 1)
+	if ([self.pagingScrollView indexOfSelectedPage] == numPages - 1)
 	{
 		numPages++;
-		[pagingScrollView reloadPages];
-		pageControl.numberOfPages = numPages;
+		[self.pagingScrollView reloadPages];
+		self.pageControl.numberOfPages = numPages;
 	}
   
-	[pagingScrollView scrollViewDidEndDecelerating];
+	[self.pagingScrollView scrollViewDidEndDecelerating];
 }
 
 #pragma mark - MHPagingScrollViewDelegate
@@ -100,7 +99,7 @@
 {
 	PageView *pageView = (PageView *)[thePagingScrollView dequeueReusablePage];
 	if (pageView == nil)
-		pageView = [[[PageView alloc] init] autorelease];
+		pageView = [[PageView alloc] init];
 
 	[pageView setPageIndex:index];
 	return pageView;

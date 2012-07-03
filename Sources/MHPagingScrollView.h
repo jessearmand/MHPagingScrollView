@@ -34,7 +34,7 @@
 @interface MHPagingScrollView : UIScrollView
 
 /*! The delegate for paging events. */
-@property (nonatomic, assign) IBOutlet id <MHPagingScrollViewDelegate> pagingDelegate;
+@property (nonatomic, unsafe_unretained) IBOutlet id <MHPagingScrollViewDelegate> pagingDelegate;
 
 /*! The width of the preview pages. */
 @property (nonatomic, assign) UIEdgeInsets previewInsets;
